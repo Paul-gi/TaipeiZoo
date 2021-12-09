@@ -17,19 +17,16 @@ public class ListData {
         mJsonObject = asJsonObject;
     }
 
-    public void setRawJson(String pRawJson, String pValueType) {
+    public void setRawJson(String pTitleName, String pRawJson) {
         try {
             mJsonObject = new JSONObject(pRawJson);
-            switch (pValueType) {
-                case "Department":
-                    setTypeDepartment(true);
-                    break;
-                case "Animal":
-                    setTypeAnimal(true);
-                    break;
-                case "Plant":
-                    setTypePlant(true);
-                    break;
+
+            if (pTitleName.equals(UtilCommonStr.getInstance().mAnimal)) {
+                setTypeAnimal(true);
+            } else if (pTitleName.equals(UtilCommonStr.getInstance().mPlant)) {
+                setTypePlant(true);
+            } else {
+                setTypeDepartment(true);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -37,9 +34,9 @@ public class ListData {
     }
 
     public void selectType(String pTitleName, Boolean pDetail) {
-        if( pTitleName.equals( UtilCommonStr.getInstance().mAnimal)) {
+        if (pTitleName.equals(UtilCommonStr.getInstance().mAnimal)) {
             setTypeAnimal(pDetail);
-        } else if( pTitleName.equals( UtilCommonStr.getInstance().mPlant)) {
+        } else if (pTitleName.equals(UtilCommonStr.getInstance().mPlant)) {
             setTypePlant(pDetail);
         } else {
             setTypeDepartment(pDetail);

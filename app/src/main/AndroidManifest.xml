@@ -9,17 +9,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaipeiZoo">
+        <activity android:name="com.example.taipeizoo.DetailActivity" />
+        <activity android:name="com.example.taipeizoo.Util.WebViewActivity" />
+        <activity android:name="com.example.taipeizoo.GoogleMapActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.TaipeiZoo.NoActionBar">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAiNF68fyMF0oBsgUhK7bOYIgxNuemOCk4" />
     </application>
 
 </manifest>

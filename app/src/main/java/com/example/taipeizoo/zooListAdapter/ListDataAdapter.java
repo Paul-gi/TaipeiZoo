@@ -16,13 +16,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taipeizoo.DetailActivity;
 import com.example.taipeizoo.R;
 import com.example.taipeizoo.Room.AppDataBase;
 import com.example.taipeizoo.Room.User;
+import com.example.taipeizoo.Util.UtilCommonStr;
 import com.example.taipeizoo.Util.UtilTools;
 import com.example.taipeizoo.listdata.ListData;
 
-import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 
 public class ListDataAdapter extends RecyclerView.Adapter<ListDataAdapter.MyViewHolder> {
@@ -37,10 +38,10 @@ public class ListDataAdapter extends RecyclerView.Adapter<ListDataAdapter.MyView
     private final Runnable mRunnable = this::changeUI;
     private UtilTools mUtilTools = new UtilTools();
 
-    public ListDataAdapter(ListDataItf pListDataItf, Context context, String pTitleName, Boolean pPageState) {
-        this.context = context;
+    public ListDataAdapter(ListDataItf pListDataItf, Context context, String pTitleStr, Boolean pPageState) {
         mListDataItf = pListDataItf;
-        mTitleName = pTitleName;
+        this.context = context;
+        mTitleName = pTitleStr;
         mPageState = pPageState;
     }
 
@@ -137,19 +138,9 @@ public class ListDataAdapter extends RecyclerView.Adapter<ListDataAdapter.MyView
         ListData iData = mZooDataList.get(pPosition);
         Intent iIntent = new Intent();
         Bundle iBundle = new Bundle();
-        switch (mTitleName) {
-//            case "Department":
-//                iIntent.setClass(pContent, PavilionDetailActivity.class);
-//                break;
-//            case "動物區":
-//                iIntent.setClass(pContent, AnimalDetailActivity.class);
-//                break;
-//            case "植物區":
-//                iIntent.setClass(pContent, PlantDetailActivity.class);
-//                break;
-        }
-        iBundle.putString(mTitleName, mTitleName);
-//        iBundle.putString(Parameter.KeyRawJson, iData.getRawData());
+        iIntent.setClass(pContent, DetailActivity.class);
+        iBundle.putString("TitleName", mTitleName);
+        iBundle.putString("ListData", iData.getRawData());
         iIntent.putExtras(iBundle);
         context.startActivity(iIntent);
     }
