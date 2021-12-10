@@ -20,7 +20,6 @@ import com.example.taipeizoo.DetailActivity;
 import com.example.taipeizoo.R;
 import com.example.taipeizoo.Room.AppDataBase;
 import com.example.taipeizoo.Room.User;
-import com.example.taipeizoo.Util.UtilCommonStr;
 import com.example.taipeizoo.Util.UtilTools;
 import com.example.taipeizoo.listdata.ListData;
 
@@ -36,11 +35,11 @@ public class ListDataAdapter extends RecyclerView.Adapter<ListDataAdapter.MyView
     private Boolean mPageState;
     private final Handler mHandler = new Handler();
     private final Runnable mRunnable = this::changeUI;
-    private UtilTools mUtilTools = new UtilTools();
+    private final UtilTools mUtilTools = new UtilTools();
 
-    public ListDataAdapter(ListDataItf pListDataItf, Context context, String pTitleStr, Boolean pPageState) {
+    public ListDataAdapter(ListDataItf pListDataItf, Context pContext, String pTitleStr, Boolean pPageState) {
         mListDataItf = pListDataItf;
-        this.context = context;
+        this.context = pContext;
         mTitleName = pTitleStr;
         mPageState = pPageState;
     }
@@ -73,7 +72,11 @@ public class ListDataAdapter extends RecyclerView.Adapter<ListDataAdapter.MyView
 
         ListData iListData = mZooDataList.get(position);
 
-        mUtilTools.controlPicture(context, iListData.keyUrl01(), holder.mPic01_URL);
+        try {
+            mUtilTools.controlPicture(context, iListData.keyUrl01(), holder.mPic01_URL);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         getRoom(position, iListData.getEnglishName(), iListData.getChineseName());
         setData(iListData.getChineseName(), holder.mName_Ch);

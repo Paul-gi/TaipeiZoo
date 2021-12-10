@@ -104,10 +104,15 @@ public class DetailActivity extends Activity {
 
     private void initBelowView() {
 
-        mUtilTools.setPictureGone(this, mListData.keyUrl01(), mDataBinding.mBelowDetail.mAPic01URL, mDataBinding.mBelowDetail.mAPic01ALT, mDataBinding.mBelowDetail.mImageTitle);
-        mUtilTools.setPictureGone(this, mListData.keyUrl02(), mDataBinding.mBelowDetail.mAPic02URL, mDataBinding.mBelowDetail.mAPic02ALT);
-        mUtilTools.setPictureGone(this, mListData.keyUrl03(), mDataBinding.mBelowDetail.mAPic03URL, mDataBinding.mBelowDetail.mAPic03ALT);
-        mUtilTools.setPictureGone(this, mListData.keyUrl04(), mDataBinding.mBelowDetail.mAPic04URL, mDataBinding.mBelowDetail.mAPic04ALT);
+        try {
+            mUtilTools.setPictureGone(this, mListData.keyUrl01(), mDataBinding.mBelowDetail.mAPic01URL, mDataBinding.mBelowDetail.mAPic01ALT, mDataBinding.mBelowDetail.mImageTitle);
+            mUtilTools.setPictureGone(this, mListData.keyUrl02(), mDataBinding.mBelowDetail.mAPic02URL, mDataBinding.mBelowDetail.mAPic02ALT);
+            mUtilTools.setPictureGone(this, mListData.keyUrl03(), mDataBinding.mBelowDetail.mAPic03URL, mDataBinding.mBelowDetail.mAPic03ALT);
+            mUtilTools.setPictureGone(this, mListData.keyUrl04(), mDataBinding.mBelowDetail.mAPic04URL, mDataBinding.mBelowDetail.mAPic04ALT);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mUtilTools.setData(mListData.getKeyAlt01(), mDataBinding.mBelowDetail.mAPic01ALT);
         mUtilTools.setData(mListData.getKeyAlt02(), mDataBinding.mBelowDetail.mAPic02ALT);
         mUtilTools.setData(mListData.getKeyAlt03(), mDataBinding.mBelowDetail.mAPic03ALT);

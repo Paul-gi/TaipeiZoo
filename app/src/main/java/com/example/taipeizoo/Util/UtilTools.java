@@ -1,7 +1,6 @@
 package com.example.taipeizoo.Util;
 
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.view.MotionEvent;
@@ -10,22 +9,38 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.example.taipeizoo.R;
+import com.example.taipeizoo.Service.RetrofitManager;
 import com.example.taipeizoo.listdata.ListData;
 import com.example.taipeizoo.listdata.LocationPositionData;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class UtilTools {
-
+    private Boolean isFirst = true;
 
     /**
      * @param pString 圖片url位址
      * @param pImage  image位址
+     *  因為https憑證問題所以使用isFirst 如果call過一次之後就不用再加載了
+     *  gilde以後記得沒圖片要看minifast權限＆xml的netWork&這裡要抓憑證
      */
-    public void controlPicture(Context pContext, String pString, ImageView pImage) {
+    public void controlPicture(Context pContext, String pString, ImageView pImage) throws Exception {
         String iStringSplit;
-        iStringSplit = pString.replace("?", "");
+        iStringSplit = pString.replaceAll("\\?", "");
+
+
+        if (isFirst) {
+            Glide.get(pContext).getRegistry()
+                    .replace(GlideUrl.class, InputStream.class,
+                            new OkHttpUrlLoader.Factory(RetrofitManager.getInstance().getSSLOkHttpClient()));
+            isFirst = false;
+        }
+        https://www.zoo.gov.tw/iTAP/03_Animals/InsectHouse/0_InsectHouse/TS/Trachychorax Sexpunctatus01.jpg
+
         Glide.with(pContext)
                 .asBitmap()
                 .load(iStringSplit)
@@ -49,7 +64,11 @@ public class UtilTools {
                 pTextView.setVisibility(View.GONE);
             }
         } else {
-            controlPicture(pContext, pURL, pImageView);
+            try {
+                controlPicture(pContext, pURL, pImageView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             if (pTextView != null) {
                 pTextView.setText(pURL);
             }
@@ -64,7 +83,7 @@ public class UtilTools {
      * @param pImageView
      * @param pTextView
      */
-    public void setPictureGone(Context pContext, String pURL, ImageView pImageView, TextView pTextView) {
+    public void setPictureGone(Context pContext, String pURL, ImageView pImageView, TextView pTextView) throws Exception {
         if (pURL.equals("")) {
             pImageView.setVisibility(View.GONE);
             if (pTextView != null) {
