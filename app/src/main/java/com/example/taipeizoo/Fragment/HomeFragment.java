@@ -11,12 +11,6 @@ import com.example.taipeizoo.R;
 import com.example.taipeizoo.databinding.HomeFragmentBinding;
 
 public class HomeFragment extends BaseFragment<HomeFragmentBinding> {
-    /**
-     * <isOpenFragment>
-     * home頁是1
-     * 打開管區是2
-     * 其他的fragment一律給99
-     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

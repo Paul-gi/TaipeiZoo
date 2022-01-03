@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.taipeizoo.R;
+import com.example.taipeizoo.Util.ProgressDialogCustom;
 import com.example.taipeizoo.ViewModel.CallViewModel;
 import com.example.taipeizoo.databinding.FragmentNavigationBinding;
 import com.example.taipeizoo.listdata.ListData;
@@ -41,8 +42,9 @@ public class NavigationFragment extends BaseFragment<FragmentNavigationBinding> 
     @Override
     protected void initView() {
         super.initView();
-        mProgress = new ProgressDialog(getContext());
-        Loading(mProgress);
+        mProgressDialogCustom.show(getParentFragmentManager(),"");
+//        mProgress = new ProgressDialog(getContext());
+//        Loading(mProgress);
         mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
         mDataBing.mRecycleView.setLayoutManager(mLinearLayoutManager);
         mDataBing.mToolbarLayout.mToolbar.setTitle(mTitleStr);
@@ -50,7 +52,10 @@ public class NavigationFragment extends BaseFragment<FragmentNavigationBinding> 
 
         mCallViewModel = new ViewModelProvider(this).get(CallViewModel.class);
 
-        mListDataAdapter = new ListDataAdapter(pListData -> {
+        mListDataAdapter = new ListDataAdapter(new ListDataAdapter.ListDataItf() {
+            @Override
+            public void getData(ListData pListData) {
+            }
         }, getContext(), mTitleStr, mPageState);
 
         mDataBing.mRecycleView.setAdapter(mListDataAdapter);
@@ -75,7 +80,8 @@ public class NavigationFragment extends BaseFragment<FragmentNavigationBinding> 
         mDataBing.mRecycleView.setOnScrollChangeListener((v, scrollX, scrollY, oldScrollX, oldScrollY) -> {
             if (!mDataBing.mRecycleView.canScrollVertically(1)) {
                 if (!mFinish) {
-                    Loading(mProgress);
+                    mProgressDialogCustom.show(getParentFragmentManager(),"");
+//                    Loading(mProgress);
                     callApiThread();
                 } else {
                     Toast.makeText(getActivity(), "到底了", Toast.LENGTH_SHORT).show();
@@ -88,7 +94,8 @@ public class NavigationFragment extends BaseFragment<FragmentNavigationBinding> 
         mCallViewModel.getDataListObserver().observe(getViewLifecycleOwner(), pCallData -> {
             if (pCallData != null) {
                 mListDataAdapter.setData(pCallData);
-                mProgress.dismiss();
+                mProgressDialogCustom.dismiss();
+//                mProgress.dismiss();
             }
         });
         callApiThread();

@@ -39,7 +39,7 @@ public class UtilTools {
                             new OkHttpUrlLoader.Factory(RetrofitManager.getInstance().getSSLOkHttpClient()));
             isFirst = false;
         }
-        https://www.zoo.gov.tw/iTAP/03_Animals/InsectHouse/0_InsectHouse/TS/Trachychorax Sexpunctatus01.jpg
+       // https://www.zoo.gov.tw/iTAP/03_Animals/InsectHouse/0_InsectHouse/TS/Trachychorax Sexpunctatus01.jpg
 
         Glide.with(pContext)
                 .asBitmap()

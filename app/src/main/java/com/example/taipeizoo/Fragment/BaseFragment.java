@@ -2,27 +2,23 @@ package com.example.taipeizoo.Fragment;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
+
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 
 import com.example.taipeizoo.R;
+import com.example.taipeizoo.Util.ProgressDialogCustom;
 import com.example.taipeizoo.Util.UtilCommonStr;
 
 public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
     public T mDataBing;
     public UtilCommonStr mUtilCommonStr = UtilCommonStr.getInstance();
     public String mTitleStr = "Title";
-    public ProgressDialog mProgress;
-
+    //    public ProgressDialog mProgress;
+    public ProgressDialogCustom mProgressDialogCustom;
 
     protected void initView() {
+        mProgressDialogCustom = new ProgressDialogCustom(requireContext());
         checkBundle();
     }
 
@@ -33,7 +29,7 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
 
     public void checkBundle() {
         Bundle iBundle = getArguments();
-        if( iBundle != null) {
+        if (iBundle != null) {
             mTitleStr = iBundle.getString(mUtilCommonStr.mKeyTitle, "");
         }
     }
@@ -54,15 +50,15 @@ public abstract class BaseFragment<T extends ViewDataBinding> extends Fragment {
         getFragmentManager().popBackStack();
     }
 
-    /**
-     * @param progress 進度條
-     */
-    public void Loading(ProgressDialog progress) {
-        progress.setMessage("載入中");
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progress.setCanceledOnTouchOutside(false);
-        progress.show();
-    }
+//    /**
+//     * @param progress 進度條
+//     */
+//    public void Loading(ProgressDialog progress) {
+//        progress.setMessage("載入中");
+//        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        progress.setCanceledOnTouchOutside(false);
+//        progress.show();
+//    }
 
 //    protected abstract void initView();
 
